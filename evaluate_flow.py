@@ -645,7 +645,7 @@ def inference_flow(model,
                    output_path='output',
                    padding_factor=8,
                    inference_size=None,
-                   save_flo_flow=False,  # save raw flow prediction as .flo
+                   save_flo_flow=True,  # save raw flow prediction as .flo
                    attn_type='swin',
                    attn_splits_list=None,
                    corr_radius_list=None,
@@ -682,7 +682,7 @@ def inference_flow(model,
 
     vis_flow_preds = []
     ori_imgs = []
-
+    #K-LightYagami need to Edit:
     for test_id in range(0, len(filenames) - 1):
         if (test_id + 1) % 50 == 0:
             print('predicting %d/%d' % (test_id + 1, len(filenames)))
@@ -798,7 +798,7 @@ def inference_flow(model,
                 Image.fromarray((fwd_occ[0].cpu().numpy() * 255.).astype(np.uint8)).save(fwd_occ_file)
                 Image.fromarray((bwd_occ[0].cpu().numpy() * 255.).astype(np.uint8)).save(bwd_occ_file)
 
-        if save_flo_flow:
+        if save_flo_flow: ##K-LightYagami need to Edit: default as true 
             if inference_video is not None:
                 output_file = os.path.join(output_path, '%04d_pred.flo' % test_id)
             else:
